@@ -10,9 +10,18 @@ async def test_create_read_delete(aiohttp_client, loop):
     data = await resp.json()
     assert {} == data
 
-    resp = await client.put('/api/v1/words/this_is_a_word')
+    resp = await client.put('/api/v1/words/this_is_a_word', json={"folder": "this"})
+    assert resp.status == 204
+
+    resp = await client.get('/api/v1/words')
     assert resp.status == 200
+    data = await resp.json()
+    assert {'this': ['this_is_a_word']} == data
 
     resp = await client.delete('/api/v1/words/this_is_a_word')
-    assert resp.status == 200
+    assert resp.status == 204
 
+    resp = await client.get('/api/v1/words')
+    assert resp.status == 200
+    data = await resp.json()
+    assert {} == data

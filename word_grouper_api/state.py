@@ -16,6 +16,13 @@ def add_word(word: str, folder: str, app: web.Application) -> None:
     app[FOLDER_TO_WORDS][folder].add(word)
 
 
-def remove_word(word: str, folder: str, app: web.Application) -> None:
-    app[WORDS_TO_FOLDER].pop(word, None)
-    app[FOLDER_TO_WORDS][folder].discard(word)
+def remove_word(word: str, app: web.Application) -> None:
+    folder = app[WORDS_TO_FOLDER].pop(word, None)
+    if folder:
+        app[FOLDER_TO_WORDS][folder].discard(word)
+        if not app[FOLDER_TO_WORDS][folder]:
+            del app[FOLDER_TO_WORDS][folder]
+
+
+def get_words(app: web.Application) -> dict:
+    return app[FOLDER_TO_WORDS]
