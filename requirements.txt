@@ -1,0 +1,2 @@
+aiohttp==3.7.4.post0
+git+ssh://git@github.com/walkingpendulum/trie.git@main#egg=trie
