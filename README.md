@@ -35,3 +35,6 @@ $ curl localhost:8080/api/v1/words
 ```bash
 $ curl -XDELETE localhost:8080/api/v1/words/this_is_a_word
 ```
+
+### Move word from one folder to another
+You should remove the word first and then put it to another folder
